@@ -26,7 +26,7 @@ class AuthController < ApplicationController
       render json: {
         message: 'Login successful',
         token: token,
-        user: user.name
+        user: user
       }, status: :ok
     else
       render json: {
