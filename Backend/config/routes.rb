@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   post "/signin", to: "auth#signin"
   post "/meals", to: "meals#create"
   post "/workouts", to: "workouts#create"
+  get "/meals", to: "meals#index"
+  get "/workouts", to: "workouts#index"
 end
 
