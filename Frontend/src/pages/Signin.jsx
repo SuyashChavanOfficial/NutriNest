@@ -20,9 +20,9 @@ export const Signin = () => {
 
       const { token, user } = response.data;
 
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
 
-      localStorage.setItem("user", JSON.stringify(user));
+      sessionStorage.setItem("user", JSON.stringify(user));
 
       navigate("/");
     } catch (err) {
