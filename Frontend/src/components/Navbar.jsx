@@ -6,11 +6,10 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   const token = sessionStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("user");
-    navigate("/signin");
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
@@ -46,12 +45,18 @@ export const Navbar = () => {
           )}
 
           {token && (
-            <button
-              onClick={handleLogout}
-              className="px-5 py-2 rounded-xl font-medium text-white 
-                bg-red-500 hover:bg-red-600 transition-all duration-300"
-            >
-              Logout
+            <button onClick={handleProfileClick}>
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white font-semibold cursor-pointer overflow-hidden">
+                {user?.profile_image ? (
+                  <img
+                    src={user.profile_image}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  user?.first_name?.charAt(0).toUpperCase()
+                )}
+              </div>
             </button>
           )}
         </div>
