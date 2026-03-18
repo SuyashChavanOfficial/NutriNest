@@ -20,14 +20,16 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6">
+    <aside className="w-64 min-h-screen bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6 flex flex-col items-center">
       <h2 className="text-2xl font-bold text-white mb-8">
         Nutri<span className="text-[#22C55E]">Nest</span>
       </h2>
 
       <ul className="space-y-3">
         {menuItems.map((item) => {
-          const isActive = location.pathname === item.path;
+          const isActive =
+            location.pathname === item.path ||
+            (location.pathname === "/" && item.path === "/meal");
 
           return (
             <li key={item.name}>

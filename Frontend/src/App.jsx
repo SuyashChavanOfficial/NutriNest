@@ -21,7 +21,8 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<Dashboard />}>
-                <Route index path="meal" element={<Meal />} />
+                <Route index element={<Meal />} />
+                <Route path="meal" element={<Meal />} />
                 <Route path="workout" element={<Workout />} />
                 <Route path="goal" element={<Goal />} />
                 <Route path="summary" element={<Summary />} />
