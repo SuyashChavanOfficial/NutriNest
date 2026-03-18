@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_18_072812) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_18_102102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "meals", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "meal_type"
+    t.integer "meal_type"
     t.string "food_name"
     t.string "calories"
     t.string "date"
@@ -26,21 +26,23 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_18_072812) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
     t.string "age"
     t.string "height"
     t.string "gender"
     t.string "email"
     t.string "phone"
     t.string "password_digest"
-    t.string "goal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.integer "weight"
+    t.string "last_name"
   end
 
   create_table "workouts", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "exercise"
+    t.integer "exercise"
     t.string "duration"
     t.string "calories_burned"
     t.string "date"

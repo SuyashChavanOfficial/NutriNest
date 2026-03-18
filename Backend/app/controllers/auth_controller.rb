@@ -5,9 +5,18 @@ class AuthController < ApplicationController
     user = User.new(user_params)
 
     if user.save
+      token = JsonWebToken.encode(user_id: user.id)
+
       render json: {
         message: 'User created successfully',
-        user: user
+        token: token,
+        user: {
+          id: user.id,
+          username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
+        }
       }, status: :created
     else
       render json: {
@@ -26,7 +35,13 @@ class AuthController < ApplicationController
       render json: {
         message: 'Login successful',
         token: token,
-        user: user
+        user: {
+          id: user.id,
+          username: user.username,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email
+        }
       }, status: :ok
     else
       render json: {
@@ -39,6 +54,17 @@ class AuthController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :age, :email, :password, :height, :gender)
+    params.permit(
+      :username,
+      :first_name,
+      :last_name,
+      :age,
+      :weight,
+      :height,
+      :gender,
+      :email,
+      :phone,
+      :password
+    )
   end
 end
