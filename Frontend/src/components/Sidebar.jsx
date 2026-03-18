@@ -12,11 +12,11 @@ export const Sidebar = () => {
   const location = useLocation();
 
   const menuItems = [
-    { name: "Meal", path: "/meals", icon: <FaUtensils /> },
+    { name: "Meal", path: "/meal", icon: <FaUtensils /> },
     { name: "Workout", path: "/workout", icon: <FaDumbbell /> },
     { name: "Goal", path: "/goal", icon: <FaBullseye /> },
     { name: "Summary", path: "/summary", icon: <FaChartPie /> },
-    { name: "Calories Burnt", path: "/calories", icon: <FaFire /> },
+    { name: "Calories Burnt", path: "/calories-burnt", icon: <FaFire /> },
   ];
 
   return (
