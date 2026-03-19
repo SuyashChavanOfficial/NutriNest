@@ -31,7 +31,7 @@ export const Profile = () => {
                     src={
                       user?.profilePic ||
                       `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                        user?.firstName || user?.name || "User",
+                        user?.first_name[0] + user?.last_name[0] || "User",
                       )}&background=22C55E&color=ffffff&size=256`
                     }
                     alt="Profile"
@@ -46,7 +46,7 @@ export const Profile = () => {
             <div className="flex-1 w-full">
               <div className="mb-6">
                 <h2 className="text-3xl font-bold text-white">
-                  {user?.firstName} {user?.lastName}
+                  {user?.first_name} {user?.last_name}
                 </h2>
                 <p className="text-gray-400 text-sm mt-1">{user?.email}</p>
               </div>
@@ -55,14 +55,14 @@ export const Profile = () => {
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <p className="text-gray-400">First Name</p>
                   <p className="text-white font-medium">
-                    {user?.firstName || "N/A"}
+                    {user?.first_name || "N/A"}
                   </p>
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <p className="text-gray-400">Last Name</p>
                   <p className="text-white font-medium">
-                    {user?.lastName || "N/A"}
+                    {user?.last_name || "N/A"}
                   </p>
                 </div>
 
