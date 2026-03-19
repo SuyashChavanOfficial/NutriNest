@@ -1,4 +1,3 @@
-// ✅ Now fully driven by props from Meal component
 export const MealEntry = ({ type, calories, items }) => {
   return (
     <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 space-y-4">

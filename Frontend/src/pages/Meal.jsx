@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { MealEntry } from "../components/MealEntry";
 import api from "../api/api";
+import { AddMeal } from "../components/AddMeal";
 
 export const Meal = () => {
   const [mealEntries, setMealEntries] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
 
   const getMealEntries = async () => {
     try {
@@ -56,7 +58,10 @@ export const Meal = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-              <button className="flex-1 py-3 rounded-xl bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition-all duration-300 shadow-md shadow-green-500/10">
+              <button
+                onClick={() => setOpenModal(true)}
+                className="flex-1 py-3 rounded-xl bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition-all duration-300 shadow-md shadow-green-500/10"
+              >
                 Add Food Entry
               </button>
 
@@ -78,6 +83,7 @@ export const Meal = () => {
           </div>
         </div>
       </div>
+      <AddMeal isOpen={openModal} onClose={() => setOpenModal(false)} />
     </div>
   );
 };
