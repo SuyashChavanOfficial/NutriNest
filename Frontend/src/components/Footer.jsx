@@ -3,7 +3,7 @@ import { FaInstagram, FaYoutube, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#0F172A] border-t border-white/10 mt-10 relative overflow-hidden">
+    <footer className="bg-[#0F172A] border-t border-white/10 relative overflow-hidden">
       {/* Glow Effects */}
       <div className="absolute w-60 h-60 bg-[#22C55E]/10 blur-3xl rounded-full top-0 left-10"></div>
       <div className="absolute w-60 h-60 bg-[#8B5CF6]/10 blur-3xl rounded-full bottom-0 right-10"></div>
