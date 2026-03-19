@@ -6,6 +6,7 @@ import { AddMeal } from "../components/AddMeal";
 export const Meal = () => {
   const [mealEntries, setMealEntries] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedType, setSelectedType] = useState("Breakfast");
 
   const getMealEntries = async () => {
     try {
@@ -50,17 +51,28 @@ export const Meal = () => {
               <h2 className="text-white font-medium mb-4">Quick Add</h2>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <button className="meal-button">Breakfast</button>
-                <button className="meal-button">Lunch</button>
-                <button className="meal-button">Dinner</button>
-                <button className="meal-button">Snack</button>
+                {["Breakfast", "Lunch", "Dinner", "Snack"].map((meal) => (
+                  <button
+                    key={meal}
+                    onClick={() => {
+                      setSelectedType(meal);
+                      setOpenModal(true);
+                    }}
+                    className="meal-button"
+                  >
+                    {meal}
+                  </button>
+                ))}
               </div>
             </div>
 
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => setOpenModal(true)}
-                className="flex-1 py-3 rounded-xl bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition-all duration-300 shadow-md shadow-green-500/10"
+                onClick={() => {
+                  setSelectedType("Breakfast");
+                  setOpenModal(true);
+                }}
+                className="flex-1 py-3 rounded-xl bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition"
               >
                 Add Food Entry
               </button>
@@ -83,7 +95,11 @@ export const Meal = () => {
           </div>
         </div>
       </div>
-      <AddMeal isOpen={openModal} onClose={() => setOpenModal(false)} />
+      <AddMeal
+        isOpen={openModal}
+        onClose={() => setOpenModal(false)}
+        defaultType={selectedType}
+      />
     </div>
   );
 };

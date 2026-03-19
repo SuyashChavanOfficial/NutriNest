@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { foodOptions } from "../helper/foodOptions";
 
-export const AddMeal = ({ isOpen, onClose }) => {
-  const [type, setType] = useState("Breakfast");
+export const AddMeal = ({ isOpen, onClose, defaultType }) => {
+  const [type, setType] = useState(defaultType || "Breakfast");
   const [items, setItems] = useState([{ food: "", quantity: "", unit: "" }]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setType(defaultType || "Breakfast");
+      setItems([{ food: "", quantity: "", unit: "" }]);
+    }
+  }, [defaultType, isOpen]);
 
   if (!isOpen) return null;
 
