@@ -1,6 +1,6 @@
 class Meal < ApplicationRecord
   belongs_to :user
-
+  has_many :meal_items, dependent: :destroy
 
     enum meal_type: {
     breakfast: 0,

@@ -8,11 +8,20 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  post "/signup", to: "auth#signup"
-  post "/signin", to: "auth#signin"
-  post "/meals", to: "meals#create"
-  post "/workouts", to: "workouts#create"
-  get "/meals", to: "meals#index"
-  get "/workouts", to: "workouts#index"
+post "/signup", to: "auth#signup"
+post "/signin", to: "auth#signin"
+
+post "/goals", to: "goals#create"
+get "/goals", to: "goals#show"
+
+resources :meals do
+  resources :meal_items, only: [:create, :index]
+end
+
+resources :workouts, only: [:create, :index]
+
+delete "/meal_items/:id", to: "meal_items#destroy"
+
+
 end
 

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-
-  has_many :meals, dependent: :destroy
-  has_many :workouts, dependent: :destroy
+  has_many :meals
+  has_many :workouts
+  has_one :goals
 
   validates :first_name, presence: true
   validates :last_name, presence: true
