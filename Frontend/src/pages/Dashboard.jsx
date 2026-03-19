@@ -3,9 +3,11 @@ import { Sidebar } from "../components/Sidebar";
 
 export const Dashboard = () => {
   return (
-    <div className="w-screen flex">
+    <div className="w-full flex items-start">
       <Sidebar />
-      <Outlet />
+      <div className="ml-64 w-[calc(100%-16rem)]">
+        <Outlet />
+      </div>
     </div>
   );
 };

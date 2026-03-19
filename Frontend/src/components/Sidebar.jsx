@@ -20,7 +20,7 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 min-h-screen bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6 flex flex-col items-center">
+    <aside className="fixed w-64 min-h-screen bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6 flex flex-col items-center">
       <h2 className="text-2xl font-bold text-white mb-8">
         Nutri<span className="text-[#22C55E]">Nest</span>
       </h2>
