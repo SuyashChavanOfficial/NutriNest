@@ -19,6 +19,8 @@ export const AddMeal = ({ isOpen, onClose, defaultType }) => {
   };
 
   const handleRemoveItem = (index) => {
+    if (items.length === 1) return;
+
     const updated = [...items];
     updated.splice(index, 1);
     setItems(updated);
@@ -85,7 +87,12 @@ export const AddMeal = ({ isOpen, onClose, defaultType }) => {
 
                 <button
                   onClick={() => handleRemoveItem(index)}
-                  className="text-red-400 hover:text-red-500 px-2"
+                  disabled={items.length === 1}
+                  className={`px-2 ${
+                    items.length === 1
+                      ? "text-gray-600 cursor-not-allowed"
+                      : "text-red-400 hover:text-red-500"
+                  }`}
                 >
                   ✕
                 </button>
