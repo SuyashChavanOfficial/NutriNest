@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { foodOptions } from "../helper/foodOptions";
+import api from "../api/api"; // ✅ ADDED: import api
 
 export const AddMeal = ({ isOpen, onClose, defaultType }) => {
   const [type, setType] = useState(defaultType || "Breakfast");
   const [items, setItems] = useState([{ food: "", quantity: "", unit: "" }]);
+  const [loading, setLoading] = useState(false); // ✅ ADDED: loading state
 
   useEffect(() => {
     if (isOpen) {
@@ -38,6 +40,43 @@ export const AddMeal = ({ isOpen, onClose, defaultType }) => {
     setItems(updated);
   };
 
+  // ✅ ADDED: MAIN FUNCTION TO SAVE MEAL + ITEMS
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+
+      // 1️⃣ Create Meal
+      const mealResponse = await api.post("/meals", {
+        meal_type: type.toLowerCase(), // backend expects lowercase
+        date: new Date().toISOString().split("T")[0], // YYYY-MM-DD
+      });
+
+      const mealId = mealResponse.data.id;
+
+      // 2️⃣ Create Meal Items (loop)
+      const validItems = items.filter((item) => item.food && item.quantity);
+
+      await Promise.all(
+        validItems.map((item) =>
+          api.post(`/meals/${mealId}/meal_items`, {
+            food_name: item.food.toLowerCase(),
+            quantity: Number(item.quantity),
+            unit: item.unit,
+          }),
+        ),
+      );
+
+      // 3️⃣ Close modal after success
+      onClose();
+
+      // (Optional) You can trigger refresh from parent later
+    } catch (error) {
+      console.error("Error saving meal:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="w-full max-w-lg bg-[#111827] border border-white/10 rounded-2xl p-6 shadow-xl">
@@ -54,7 +93,7 @@ export const AddMeal = ({ isOpen, onClose, defaultType }) => {
             <option>Breakfast</option>
             <option>Lunch</option>
             <option>Dinner</option>
-            <option>Snack</option>
+            <option>Snacks</option>
           </select>
 
           <div className="space-y-3">
@@ -116,8 +155,12 @@ export const AddMeal = ({ isOpen, onClose, defaultType }) => {
             Cancel
           </button>
 
-          <button className="flex-1 py-2 rounded-lg bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition">
-            Save
+          <button
+            onClick={handleSave} // ✅ ADDED: connect save function
+            disabled={loading}
+            className="flex-1 py-2 rounded-lg bg-[#22C55E] hover:bg-[#16A34A] text-white font-medium transition disabled:opacity-50"
+          >
+            {loading ? "Saving..." : "Save"} {/* ✅ ADDED */}
           </button>
         </div>
       </div>

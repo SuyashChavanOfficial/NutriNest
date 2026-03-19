@@ -51,7 +51,7 @@ export const Meal = () => {
               <h2 className="text-white font-medium mb-4">Quick Add</h2>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {["Breakfast", "Lunch", "Dinner", "Snack"].map((meal) => (
+                {["Breakfast", "Lunch", "Dinner", "Snacks"].map((meal) => (
                   <button
                     key={meal}
                     onClick={() => {

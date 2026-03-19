@@ -22,14 +22,14 @@ class MealsController < ApplicationController
 
     formatted_meals = meals.map do |meal|
       {
-        type: meal.meal_type.capitalize,
+        type: meal.meal_type.capitalize || "Unknown",
         calories: meal.meal_items.sum(:calories),
         date: meal.date,
         created_at: meal.created_at,
         items: meal.meal_items.map do |item|
           {
-            name: item.food_name.capitalize,
-            calories: item.calories
+            name: item.food_name&.capitalize || "Unknown",
+            calories: item.calories || 0
           }
         end
       }
