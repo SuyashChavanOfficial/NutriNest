@@ -35,3 +35,7 @@ body {
   min-height: 100vh;
   color: white;
 }
+
+.meal-button {
+  @apply bg-[#111827] hover:bg-white/10 border border-white/10 text-white py-3 rounded-xl transition;
+}
