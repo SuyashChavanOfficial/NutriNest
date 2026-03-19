@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { MealEntry } from "../components/MealEntry";
+import api from "../api/api";
 
 export const Meal = () => {
-  const [mealEntries, setMealEntries] = useState([
-    {
-      type: "Breakfast",
-      calories: 300,
-      items: [
-        { name: "Oats", calories: 150 },
-        { name: "Milk", calories: 150 },
-      ],
-    },
-    {
-      type: "Lunch",
-      calories: 650,
-      items: [
-        { name: "Rice", calories: 300 },
-        { name: "Dal", calories: 200 },
-        { name: "Salad", calories: 100 },
-        { name: "Soda", calories: 50 },
-      ],
-    },
-  ]);
+  const [mealEntries, setMealEntries] = useState([]);
 
-  const getMealEntries = () => {
+  const getMealEntries = async () => {
     try {
-    } catch (error) {}
+      const response = await api.get("/meals");
+
+      if (response) {
+        setMealEntries(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
