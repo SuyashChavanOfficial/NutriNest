@@ -12,6 +12,8 @@ post "/signup", to: "auth#signup"
 post "/signin", to: "auth#signin"
 
 patch "/edit_profile", to: "users#update"
+get "/edit_profile", to: "users#show"
+
 
 resources :goals, only: [ :create, :index]
 

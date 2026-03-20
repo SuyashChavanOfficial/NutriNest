@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+
+  # Show user profile
+  def show
+    render json: {
+      user: current_user,
+      profile_completion: current_user.profile_completion_percentage,
+      missing_fields: current_user.missing_profile_fields
+    }
+  end
+
+  # Update user profile
   def update
     if current_user.update(user_params)
       render json: {
@@ -14,6 +25,7 @@ class UsersController < ApplicationController
 
   private
 
+  # Permit user parameters
   def user_params
     params.require(:user).permit(
       :first_name,
