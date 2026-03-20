@@ -79,7 +79,7 @@ export const Profile = () => {
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <p className="text-gray-400">Gender</p>
                   <p className="text-white font-medium">
-                    {user?.gender.toUpperCase() || "N/A"}
+                    {user?.gender?.toUpperCase() || "N/A"}
                   </p>
                 </div>
 
