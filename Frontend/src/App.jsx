@@ -12,19 +12,31 @@ import { Summary } from "./pages/Summary";
 import { CaloriesBurnt } from "./pages/CaloriesBurnt";
 import { Goal } from "./pages/Goal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { EditProfile } from "./pages/EditProfile";
+import { useState } from "react";
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <>
       <BrowserRouter>
         <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-          <Navbar />
+          <Navbar setIsSidebarOpen={setIsSidebarOpen} />
           <main>
             <Routes>
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Dashboard />}>
+                <Route
+                  path="/"
+                  element={
+                    <Dashboard
+                      isSidebarOpen={isSidebarOpen}
+                      setIsSidebarOpen={setIsSidebarOpen}
+                    />
+                  }
+                >
                   <Route index element={<Meal />} />
                   <Route path="meal" element={<Meal />} />
                   <Route path="workout" element={<Workout />} />
@@ -34,6 +46,7 @@ function App() {
                 </Route>
 
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
               </Route>
             </Routes>
           </main>

@@ -1,7 +1,8 @@
 import React from "react";
+import { FaBars } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export const Navbar = () => {
+export const Navbar = ({ setIsSidebarOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -15,11 +16,21 @@ export const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/5 border-b border-white/10 shadow-lg">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        <Link to="/">
-          <h1 className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent tracking-wide">
-            NutriNest
-          </h1>
-        </Link>
+        <div className="flex items-center gap-4">
+          {/* HAMBURGER - mobile only */}
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="md:hidden text-white text-xl"
+          >
+            <FaBars />
+          </button>
+
+          <Link to="/">
+            <h1 className="text-xl md:text-2xl font-extrabold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent tracking-wide">
+              NutriNest
+            </h1>
+          </Link>
+        </div>
 
         <div className="flex items-center gap-4">
           {!token && (

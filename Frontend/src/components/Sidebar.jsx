@@ -8,7 +8,7 @@ import {
   FaFire,
 } from "react-icons/fa";
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen, setIsSidebarOpen }) => {
   const location = useLocation();
 
   const menuItems = [
@@ -20,7 +20,17 @@ export const Sidebar = () => {
   ];
 
   return (
-    <aside className="fixed w-64 min-h-screen bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6 flex flex-col items-center">
+    <aside
+      className={`
+    fixed left-0 h-full w-64 z-40
+    bg-[#0F172A] border-r border-white/10 backdrop-blur-lg shadow-xl p-6
+    flex flex-col items-center
+    transform transition-transform duration-300
+
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
+  `}
+    >
       <h2 className="text-2xl font-bold text-white mb-8">
         Nutri<span className="text-[#22C55E]">Nest</span>
       </h2>
@@ -35,6 +45,7 @@ export const Sidebar = () => {
             <li key={item.name}>
               <Link
                 to={item.path}
+                onClick={() => setIsSidebarOpen(false)}
                 className={`flex items-center gap-3 px-4 py-2 rounded-xl transition-all duration-300
                 ${
                   isActive
