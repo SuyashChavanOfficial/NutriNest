@@ -10,7 +10,7 @@ class GoalsController < ApplicationController
     end
 
   
-    goal = current_user.create(goal_params)
+    goal = current_user.new(goal_params)
 
     goal.goal_calorie = GoalCalorieCalculator.calculate(current_user, goal.goal_type)
 
