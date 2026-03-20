@@ -71,7 +71,7 @@ export const Meal = () => {
   return (
     <div className="bg-[#0F172A] p-6 w-full min-h-screen">
       <div className="max-w-5xl mx-auto space-y-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-white">Meal Log</h1>
             <p className="text-gray-400 text-sm mt-1">
@@ -105,13 +105,13 @@ export const Meal = () => {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <div className="flex gap-3 flex-wrap">
+        <div className="flex items-center justify-between gap-3">
+          <div className="hidden md:flex gap-3 flex-wrap ">
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
+                className={`px-4 py-2 rounded-xl font-medium transition ${
                   activeFilter === filter
                     ? "bg-[#22C55E] text-white"
                     : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
@@ -120,6 +120,31 @@ export const Meal = () => {
                 {filter}
               </button>
             ))}
+          </div>
+
+          <div className="md:hidden flex items-center gap-2">
+            <span className="text-gray-400 text-sm">Filter:</span>
+            <select
+              value={activeFilter}
+              onChange={(e) => setActiveFilter(e.target.value)}
+              className="bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#22C55E]"
+            >
+              <option value="All" className="bg-[#111827] text-white">
+                All
+              </option>
+              <option value="Breakfast" className="bg-[#111827] text-white">
+                Breakfast
+              </option>
+              <option value="Lunch" className="bg-[#111827] text-white">
+                Lunch
+              </option>
+              <option value="Dinner" className="bg-[#111827] text-white">
+                Dinner
+              </option>
+              <option value="Snacks" className="bg-[#111827] text-white">
+                Snacks
+              </option>
+            </select>
           </div>
 
           <div className="flex items-center gap-2">
@@ -145,7 +170,7 @@ export const Meal = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredMeals.length > 0 ? (
             filteredMeals.map((entry, index) => (
               <MealEntry
