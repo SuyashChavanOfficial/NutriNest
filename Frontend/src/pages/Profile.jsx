@@ -67,15 +67,15 @@ export const Profile = () => {
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-gray-400">Age</p>
-                  <p className="text-white font-medium">{user?.age || "N/A"}</p>
+                  <p className="text-gray-400">Email</p>
+                  <p className="text-white font-medium break-all">
+                    {user?.email || "N/A"}
+                  </p>
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-gray-400">Weight (kg)</p>
-                  <p className="text-white font-medium">
-                    {user?.weight || "N/A"}
-                  </p>
+                  <p className="text-gray-400">Password</p>
+                  <p className="text-white font-medium">********</p>
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
@@ -86,15 +86,22 @@ export const Profile = () => {
                 </div>
 
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-gray-400">Email</p>
-                  <p className="text-white font-medium break-all">
-                    {user?.email || "N/A"}
+                  <p className="text-gray-400">Weight (kg)</p>
+                  <p className="text-white font-medium">
+                    {user?.weight || "N/A"}
                   </p>
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4 md:col-span-2">
-                  <p className="text-gray-400">Password</p>
-                  <p className="text-white font-medium">********</p>
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-gray-400">Gender</p>
+                  <p className="text-white font-medium">
+                    {user?.gender || "N/A"}
+                  </p>
+                </div>
+
+                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                  <p className="text-gray-400">Age</p>
+                  <p className="text-white font-medium">{user?.age || "N/A"}</p>
                 </div>
               </div>
 
