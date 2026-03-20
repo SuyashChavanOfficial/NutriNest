@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api/api";
 
 export const EditProfile = () => {
   const navigate = useNavigate();
-
-  const storedUser = JSON.parse(sessionStorage.getItem("user"));
-
   const [formData, setFormData] = useState({
-    first_name: storedUser?.first_name || "",
-    last_name: storedUser?.last_name || "",
-    email: storedUser?.email || "",
-    age: storedUser?.age || "",
-    height: storedUser?.height || "",
-    weight: storedUser?.weight || "",
-    gender: storedUser?.gender || "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    age: "",
+    height: "",
+    weight: "",
+    gender: "",
   });
+
+  const getUser = async () => {
+    const res = await api.get("/edit_profile");
+
+    setFormData({
+      ...res.data.user,
+    });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const [loading, setLoading] = useState(false);
 
