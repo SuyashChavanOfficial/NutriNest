@@ -39,33 +39,17 @@ export const Profile = () => {
                   />
                 </div>
               </div>
-
-              <p className="text-xs text-gray-400">{user?.username}</p>
             </div>
 
             <div className="flex-1 w-full">
-              <div className="mb-6">
+              <div className="mb-6 flex flex-col items-center justify-center md:block">
                 <h2 className="text-3xl font-bold text-white">
                   {user?.first_name} {user?.last_name}
                 </h2>
-                <p className="text-gray-400 text-sm mt-1">{user?.email}</p>
+                <p className="text-gray-400 text-sm mt-1">@{user?.username}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-gray-400">First Name</p>
-                  <p className="text-white font-medium">
-                    {user?.first_name || "N/A"}
-                  </p>
-                </div>
-
-                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
-                  <p className="text-gray-400">Last Name</p>
-                  <p className="text-white font-medium">
-                    {user?.last_name || "N/A"}
-                  </p>
-                </div>
-
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <p className="text-gray-400">Email</p>
                   <p className="text-white font-medium break-all">
@@ -95,7 +79,7 @@ export const Profile = () => {
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                   <p className="text-gray-400">Gender</p>
                   <p className="text-white font-medium">
-                    {user?.gender || "N/A"}
+                    {user?.gender.toUpperCase() || "N/A"}
                   </p>
                 </div>
 
