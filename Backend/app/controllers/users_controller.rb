@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def update
     if current_user.update(user_params)
       render json: {
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(
+    params.require(:user).permit(
       :first_name,
       :last_name,
       :age,
@@ -25,5 +24,4 @@ class UsersController < ApplicationController
       :gender
     )
   end
-
 end
