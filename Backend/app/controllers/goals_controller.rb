@@ -9,8 +9,7 @@ class GoalsController < ApplicationController
       }, status: :unprocessable_entity
     end
 
-    return render json: { error: "Goal already exists" }, status: :unprocessable_entity if current_user.goal.present?
-
+  
     goal = current_user.build_goal(goal_params)
 
     goal.goal_calorie = GoalCalorieCalculator.calculate(current_user, goal.goal_type)
