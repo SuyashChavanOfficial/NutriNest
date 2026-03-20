@@ -7,9 +7,12 @@ export const Meal = () => {
   const [mealEntries, setMealEntries] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("type_asc");
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedType, setSelectedType] = useState("Breakfast");
+
+  const filters = ["All", "Breakfast", "Lunch", "Dinner", "Snacks"];
 
   const getMealEntries = async () => {
     try {
@@ -27,7 +30,6 @@ export const Meal = () => {
     getMealEntries();
   }, []);
 
-  // Filter logic
   useEffect(() => {
     if (activeFilter === "All") {
       setFilteredMeals(mealEntries);
@@ -40,12 +42,35 @@ export const Meal = () => {
     }
   }, [activeFilter, mealEntries]);
 
-  const filters = ["All", "Breakfast", "Lunch", "Dinner", "Snacks"];
+  useEffect(() => {
+    let updatedMeals = [...mealEntries];
+
+    if (activeFilter !== "All") {
+      updatedMeals = updatedMeals.filter(
+        (meal) => meal.type.toLowerCase() === activeFilter.toLowerCase(),
+      );
+    }
+
+    if (sortBy === "latest") {
+      updatedMeals.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at),
+      );
+    } else if (sortBy === "oldest") {
+      updatedMeals.sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at),
+      );
+    } else if (sortBy === "type_asc") {
+      updatedMeals.sort((a, b) => a.type.localeCompare(b.type));
+    } else if (sortBy === "type_desc") {
+      updatedMeals.sort((a, b) => b.type.localeCompare(a.type));
+    }
+
+    setFilteredMeals(updatedMeals);
+  }, [activeFilter, mealEntries, sortBy]);
 
   return (
     <div className="bg-[#0F172A] p-6 w-full min-h-screen">
       <div className="max-w-5xl mx-auto space-y-6">
-        {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-semibold text-white">Meal Log</h1>
@@ -54,7 +79,6 @@ export const Meal = () => {
             </p>
           </div>
 
-          {/* TOTAL CALORIES (moved here) */}
           <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl px-5 py-3 text-center min-w-[140px]">
             <p className="text-gray-400 text-xs uppercase tracking-wide">
               Today
@@ -65,7 +89,6 @@ export const Meal = () => {
           </div>
         </div>
 
-        {/* ACTION BUTTONS (moved below) */}
         <div className="flex gap-3">
           <button
             onClick={() => {
@@ -82,24 +105,46 @@ export const Meal = () => {
           </button>
         </div>
 
-        {/* FILTER TABS */}
-        <div className="flex gap-3 flex-wrap">
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
-                activeFilter === filter
-                  ? "bg-[#22C55E] text-white"
-                  : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
-              }`}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div className="flex gap-3 flex-wrap">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
+                  activeFilter === filter
+                    ? "bg-[#22C55E] text-white"
+                    : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400 text-sm">Sort:</span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#22C55E]"
             >
-              {filter}
-            </button>
-          ))}
+              <option value="type_asc" className="bg-[#111827] text-white">
+                Meal Type (A-Z)
+              </option>
+              <option value="type_desc" className="bg-[#111827] text-white">
+                Meal Type (Z-A)
+              </option>
+              <option value="latest" className="bg-[#111827] text-white">
+                Time (Latest)
+              </option>
+              <option value="oldest" className="bg-[#111827] text-white">
+                Time (Oldest)
+              </option>
+            </select>
+          </div>
         </div>
 
-        {/* MEAL LIST */}
         <div className="grid grid-cols-2 gap-4">
           {filteredMeals.length > 0 ? (
             filteredMeals.map((entry, index) => (
@@ -118,7 +163,6 @@ export const Meal = () => {
         </div>
       </div>
 
-      {/* MODAL */}
       <AddMeal
         isOpen={openModal}
         onClose={() => setOpenModal(false)}
