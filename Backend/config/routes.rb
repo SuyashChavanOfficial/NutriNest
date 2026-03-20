@@ -13,6 +13,7 @@ post "/signin", to: "auth#signin"
 
 post "/goals", to: "goals#create"
 get "/goals", to: "goals#show"
+patch "/edit_profile", to: "users#update"
 
 resources :meals do
   resources :meal_items, only: [:create, :index]
