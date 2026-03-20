@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/api";
 
 export const Goal = () => {
@@ -30,6 +30,30 @@ export const Goal = () => {
     }
   };
 
+  const getGoals = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await api.get("/goals");
+
+      setGoalData(res.data);
+    } catch (err) {
+      const res = err.response?.data;
+
+      if (res?.error) {
+        setError(res.error);
+      } else {
+        setError("Something went wrong");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getGoals();
+  }, [goal]);
   return (
     <div className="min-h-screen bg-[#0F172A] p-6 w-full">
       <div className="max-w-4xl mx-auto space-y-6">
@@ -53,7 +77,7 @@ export const Goal = () => {
             <option value="">Choose your goal</option>
             <option value="fat_loss">Fat Loss</option>
             <option value="weight_gain">Weight Gain</option>
-            <option value="muscle_building">Muscle Building</option>
+            <option value="strength_training">Strength Training</option>
           </select>
         </div>
 

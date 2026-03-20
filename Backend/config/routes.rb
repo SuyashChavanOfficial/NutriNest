@@ -13,7 +13,7 @@ post "/signin", to: "auth#signin"
 
 patch "/edit_profile", to: "users#update"
 
-resources :goals, only: [ :create, :show ]
+resources :goals, only: [ :create, :index]
 
 
 resources :meals do

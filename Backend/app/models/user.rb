@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Associations
   has_many :meals
   has_many :workouts
-  has_one :goal, dependent: :destroy
+  has_many :goal, dependent: :destroy
 
   # Constants
   REQUIRED_PROFILE_FIELDS = %i[age height weight gender]

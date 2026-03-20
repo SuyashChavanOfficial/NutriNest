@@ -1,5 +1,10 @@
 class GoalsController < ApplicationController
 
+  def index
+    goal = current_user.goal.last
+    render json: goal
+  end
+
   def create
     unless current_user.profile_complete?
       return render json: {
