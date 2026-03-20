@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 export const Profile = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState();
 
-  const user = JSON.parse(sessionStorage.getItem("user"));
   const token = sessionStorage.getItem("token");
 
   const handleLogout = () => {
@@ -16,6 +18,20 @@ export const Profile = () => {
     navigate("/signin");
     return null;
   }
+
+  const getUserData = async () => {
+    try {
+      const res = await api.get("/edit_profile");
+
+      setUser(res.data.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0F172A] px-6 py-10">
